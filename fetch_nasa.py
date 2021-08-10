@@ -1,0 +1,65 @@
+import requests
+import os
+import urllib
+import datetime
+from dotenv import load_dotenv
+
+
+def url_split(url):
+    url_slpit = urllib.parse.urlsplit(url)
+    path = url_slpit[2]
+    return os.path.splitext(path)[1]
+
+
+def fetch_nasa_APOD():
+    payload = {
+        "api_key": nasa_api_key,
+        "start_date": "2016-01-01",
+        "end_date": "2016-02-02",
+    }
+    response = requests.get(nasa_APOD_url,params=payload)
+    response.raise_for_status
+    APOD_links = []
+    APOD = response.json()
+    for links in APOD:
+        APOD_links.append(links["url"])
+    for number, images in enumerate(APOD_links, 1):
+        response = requests.get(images)
+        extension = url_split(images)
+        with open(os.path.join(direc, f'{"nasa APOD "}{number}{extension}'), "wb") as file:
+            file.write(response.content)
+
+
+def fetch_nasa_EPIC():
+    response = requests.get(nasa_EPIC_url)
+    EPICs = response.json()
+    EPIC_images = []
+    for EPIC in EPICs:
+        aDateTime = datetime.datetime.fromisoformat(EPIC["date"])
+        formatted_date = aDateTime.strftime("%Y/%m/%d")
+        EPIC_images.append(EPIC["image"])
+    payload = {"api_key": nasa_api_key}
+    for number, image in enumerate(EPIC_images, 1):
+        response = requests.get(
+            f"{template_url}{'/'}{formatted_date}{'/'}{'png'}{'/'}{image}{'.png'}",
+            params=payload,
+        )
+        EPIC_link = response.url
+        extension = url_split(EPIC_link)
+        with open(os.path.join(direc, f'{"nasa EPIC "}{number}{extension}'), "wb") as file:
+            file.write(response.content)
+
+
+if __name__=='__main__':
+    direc = input("Введите название папки ")
+    try:
+        os.mkdir(direc)
+    except FileExistsError:
+        print('Такая папка уже создана')
+    nasa_APOD_url = "https://api.nasa.gov/planetary/apod"
+    template_url = "https://api.nasa.gov/EPIC/archive/natural"
+    nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY"
+    load_dotenv()
+    nasa_api_key = os.getenv("NASA_API_KEY")
+    fetch_nasa_APOD()
+    fetch_nasa_EPIC()
