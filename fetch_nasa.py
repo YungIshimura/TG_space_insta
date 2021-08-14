@@ -11,7 +11,7 @@ def url_split(url):
     return os.path.splitext(path)[1]
 
 
-def fetch_nasa_APOD():
+def fetch_nasa_APOD(APOD_links):
     payload = {
         "api_key": nasa_api_key,
         "start_date": "2016-01-01",
@@ -19,7 +19,6 @@ def fetch_nasa_APOD():
     }
     response = requests.get(nasa_APOD_url,params=payload)
     response.raise_for_status
-    APOD_links = []
     APOD = response.json()
     for links in APOD:
         APOD_links.append(links["url"])
@@ -30,10 +29,9 @@ def fetch_nasa_APOD():
             file.write(response.content)
 
 
-def fetch_nasa_EPIC():
+def fetch_nasa_EPIC(EPIC_images):
     response = requests.get(nasa_EPIC_url)
     EPICs = response.json()
-    EPIC_images = []
     for EPIC in EPICs:
         aDateTime = datetime.datetime.fromisoformat(EPIC["date"])
         formatted_date = aDateTime.strftime("%Y/%m/%d")
@@ -61,5 +59,7 @@ if __name__=='__main__':
     nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY"
     load_dotenv()
     nasa_api_key = os.getenv("NASA_API_KEY")
-    fetch_nasa_APOD()
-    fetch_nasa_EPIC()
+    APOD_links = []
+    EPIC_images = []
+    fetch_nasa_APOD(APOD_links)
+    fetch_nasa_EPIC(EPIC_images)
