@@ -50,10 +50,7 @@ def fetch_nasa_EPIC(EPIC_images):
 
 if __name__=='__main__':
     direc = input("Введите название папки ")
-    try:
-        os.mkdir(direc)
-    except FileExistsError:
-        print('Такая папка уже создана')
+    os.makedirs(direc,exist_ok=False)
     nasa_APOD_url = "https://api.nasa.gov/planetary/apod"
     nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY"
     load_dotenv()

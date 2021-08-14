@@ -23,10 +23,7 @@ def fetch_spacex_last_launch():
 
 if __name__=='__main__':
     direc = input("Введите название папки ")
-    try:
-        os.mkdir(direc)
-    except FileExistsError:
-        print('Такая папка уже создана')
+    os.makedirs(direc,exist_ok=False)
     url = "https://api.spacexdata.com"
     fetch_spacex_last_launch()
     
