@@ -30,7 +30,10 @@ def fetch_nasa_APOD(APOD_links):
 
 
 def fetch_nasa_EPIC(EPIC_images):
-    response = requests.get(nasa_EPIC_url)
+    payload = {
+        "api_key":"DEMO_KEY"
+    }
+    response = requests.get(nasa_EPIC_url,params=payload)
     EPICs = response.json()
     for EPIC in EPICs:
         aDateTime = datetime.datetime.fromisoformat(EPIC["date"])
@@ -39,8 +42,8 @@ def fetch_nasa_EPIC(EPIC_images):
     payload = {"api_key": nasa_api_key}
     for number, image in enumerate(EPIC_images, 1):
         response = requests.get(
-            "https://api.nasa.gov/EPIC/archive/natural"f"{'/'}{formatted_date}{'/png'}{'/'}{image}{'.png'}",
-            params=payload,
+            "https://api.nasa.gov/EPIC/archive/natural,"f"{'/'}{formatted_date}{'/png'}{'/'}{image}{'.png'}",
+            params=payload
         )
         EPIC_link = response.url
         extension = url_split(EPIC_link)
@@ -52,7 +55,7 @@ if __name__=='__main__':
     direc = input("Введите название папки ")
     os.makedirs(direc,exist_ok=False)
     nasa_APOD_url = "https://api.nasa.gov/planetary/apod"
-    nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY"
+    nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30"
     load_dotenv()
     nasa_api_key = os.getenv("NASA_API_KEY")
     APOD_links = []
