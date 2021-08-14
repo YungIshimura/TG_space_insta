@@ -25,7 +25,7 @@ def fetch_nasa_APOD(APOD_links):
     for number, images in enumerate(APOD_links, 1):
         response = requests.get(images)
         extension = url_split(images)
-        with open(os.path.join(direc, f'{"nasa APOD "}{number}{extension}'), "wb") as file:
+        with open(os.path.join(direc, "nasa APOD"f'{number}{extension}'), "wb") as file:
             file.write(response.content)
 
 
@@ -39,7 +39,7 @@ def fetch_nasa_EPIC(EPIC_images):
     payload = {"api_key": nasa_api_key}
     for number, image in enumerate(EPIC_images, 1):
         response = requests.get(
-            f"{template_url}{'/'}{formatted_date}{'/'}{'png'}{'/'}{image}{'.png'}",
+            "https://api.nasa.gov/EPIC/archive/natural"f"{'/'}{formatted_date}{'/png'}{'/'}{image}{'.png'}",
             params=payload,
         )
         EPIC_link = response.url
@@ -55,7 +55,6 @@ if __name__=='__main__':
     except FileExistsError:
         print('Такая папка уже создана')
     nasa_APOD_url = "https://api.nasa.gov/planetary/apod"
-    template_url = "https://api.nasa.gov/EPIC/archive/natural"
     nasa_EPIC_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30?api_key=DEMO_KEY"
     load_dotenv()
     nasa_api_key = os.getenv("NASA_API_KEY")

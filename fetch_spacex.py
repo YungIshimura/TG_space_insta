@@ -15,9 +15,9 @@ def fetch_spacex_last_launch():
     launches = response.json()
     images_links = launches[15]["links"]["flickr_images"]
     for number, images in enumerate(images_links, 1):
-        response = requests.get(images)
         extension = url_split(images)
-        with open(os.path.join(direc, f'{"spacex image "}{number}{extension}'), "wb") as file:
+        response = requests.get(images)
+        with open(os.path.join(direc, 'spacex image'f'{number}{extension}'), "wb") as file:
             file.write(response.content)
 
 
@@ -29,3 +29,4 @@ if __name__=='__main__':
         print('Такая папка уже создана')
     url = "https://api.spacexdata.com"
     fetch_spacex_last_launch()
+    
