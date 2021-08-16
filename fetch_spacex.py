@@ -11,12 +11,14 @@ def url_split(url):
 
 
 def fetch_spacex_last_launch():
-    response = requests.get(f'{url}{"/v3"}{"/launches"}')
+    response = requests.get("https://api.spacexdata.com"f'{"/v3"}{"/launches"}')
+    response.raise_for_status()
     launches = response.json()
     images_links = launches[15]["links"]["flickr_images"]
     for number, images in enumerate(images_links, 1):
         extension = url_split(images)
         response = requests.get(images)
+        response.raise_for_status()
         with open(os.path.join(direc, 'spacex image'f'{number}{extension}'), "wb") as file:
             file.write(response.content)
 
@@ -24,6 +26,5 @@ def fetch_spacex_last_launch():
 if __name__=='__main__':
     direc = input("Введите название папки ")
     os.makedirs(direc,exist_ok=False)
-    url = "https://api.spacexdata.com"
     fetch_spacex_last_launch()
     
