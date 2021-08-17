@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from url_split import url_split
 
-def fetch_spacex_last_launch():
+def fetch_spacex_last_launch(directory):
     response = requests.get("https://api.spacexdata.com"f'{"/v3"}{"/launches"}')
     response.raise_for_status()
     launches = response.json()
@@ -19,5 +19,5 @@ def fetch_spacex_last_launch():
 if __name__ == "__main__":
     directory = input("Введите название папки ")
     os.makedirs(directory,exist_ok=False)
-    fetch_spacex_last_launch()
+    fetch_spacex_last_launch(directory)
     
