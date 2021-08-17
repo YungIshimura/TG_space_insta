@@ -1,15 +1,7 @@
 import requests
 import os
-import urllib
 from dotenv import load_dotenv
-
-
-def url_split(url):
-    url = urllib.parse.unquote(url)
-    url_slpit = urllib.parse.urlsplit(url)
-    path = url_slpit[2]
-    return os.path.splitext(path)[1]
-
+from url_split import url_split
 
 def fetch_spacex_last_launch():
     response = requests.get("https://api.spacexdata.com"f'{"/v3"}{"/launches"}')
