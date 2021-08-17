@@ -15,7 +15,7 @@ NASA_API_KEY='Ваш API-ключ'
 ``` python
 NASA_API_KEY = os.getenv('NASA_API_KEY')
 ```
-Ну и наконец необходимо создать телеграм бота в [BotFather](https://telegram.me/BotFather) и получать API-ключ бота и id чата который можно уже указать в самом коде.
+Ну и наконец необходимо создать телеграм бота в [BotFather](https://telegram.me/BotFather) и получать API-ключ бота и id чата который можно уже указать в ```.env``` файле.
 ```python
 chat_id = 'Ваш chat_id'
 ```
