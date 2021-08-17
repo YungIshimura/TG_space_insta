@@ -27,7 +27,7 @@ def fetch_nasa_apod(apod_links):
         response = requests.get(images)
         response.raise_for_status()
         extension = url_split(images)
-        with open(os.path.join(direc, "nasa apod"f'{number}{extension}'), "wb") as file:
+        with open(os.path.join(directory, "nasa apod"f'{number}{extension}'), "wb") as file:
             file.write(response.content)
 
 
@@ -50,13 +50,13 @@ def fetch_nasa_epic(epic_images):
         response.raise_for_status()
         epic_link = response.url
         extension = url_split(epic_link)
-        with open(os.path.join(direc, f'{"nasa epic "}{number}{extension}'), "wb") as file:
+        with open(os.path.join(directory, f'{"nasa epic "}{number}{extension}'), "wb") as file:
             file.write(response.content)
 
 
 if __name__=='__main__':
-    direc = input("Введите название папки ")
-    os.makedirs(direc,exist_ok=False)
+    directory = input("Введите название папки ")
+    os.makedirs(directory,exist_ok=False)
     nasa_apod_url = "https://api.nasa.gov/planetary/apod"
     nasa_epic_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30"
     load_dotenv()
