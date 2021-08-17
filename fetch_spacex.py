@@ -12,11 +12,11 @@ def fetch_spacex_last_launch():
         extension = url_split(images)
         response = requests.get(images)
         response.raise_for_status()
-        with open(os.path.join(directory, 'spacex image'f'{number}{extension}'), "wb") as file:
+        with open(os.path.join(directory, f"spacex image{number}{extension}"), "wb") as file:
             file.write(response.content)
 
 
-if __name__=='__main__':
+if __name__ == "__main__":
     directory = input("Введите название папки ")
     os.makedirs(directory,exist_ok=False)
     fetch_spacex_last_launch()

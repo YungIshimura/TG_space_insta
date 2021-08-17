@@ -20,7 +20,7 @@ def fetch_nasa_apod(apod_links):
         response = requests.get(images)
         response.raise_for_status()
         extension = url_split(images)
-        with open(os.path.join(directory, "nasa apod"f'{number}{extension}'), "wb") as file:
+        with open(os.path.join(directory, f"nasa apod{number}{extension}"), "wb") as file:
             file.write(response.content)
 
 
@@ -39,15 +39,15 @@ def fetch_nasa_epic(epic_images):
         "api_key":nasa_api_key
         }
     for number, image in enumerate(epic_images, 1):
-        response = requests.get("https://api.nasa.gov/EPIC/archive/natural"f"{'/'}{formatted_date}{'/png'}{'/'}{image}{'.png'}",params=payload)
+        response = requests.get(f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{image}.png",params=payload)
         response.raise_for_status()
         epic_link = response.url
         extension = url_split(epic_link)
-        with open(os.path.join(directory, f'{"nasa epic "}{number}{extension}'), "wb") as file:
+        with open(os.path.join(directory, f"nasa epic{number}{extension}"), "wb") as file:
             file.write(response.content)
 
 
-if __name__=='__main__':
+if __name__ == "__main__":
     directory = input("Введите название папки ")
     os.makedirs(directory,exist_ok=False)
     nasa_apod_url = "https://api.nasa.gov/planetary/apod"
