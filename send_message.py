@@ -7,10 +7,10 @@ import time
 
 def send_message(bot,directory):
     while True:
-        for images in listdir(directory):
-            bot.send_document(chat_id=chat_id, document=open(f"{directory}{'/'}{images}",'rb'))
-            time.sleep(86400)
-
+        for images in listdir(directory):   
+             with open (f"{directory}{'/'}{images}",'rb') as file:
+                 bot.send_document(chat_id, document=file)
+                 time.slepp(86400)
 
 if __name__ == '__main__':
     directory = input('Введите название папки, из которой будут отпраляться фото ')
