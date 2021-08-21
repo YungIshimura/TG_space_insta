@@ -10,8 +10,9 @@ def url_split(url):
     return os.path.splitext(path)[1]
 
 
-def download_image(path, url):
-        response = requests.get(url)
-        response.raise_for_status()
-        with open(path, "wb") as file:
-            file.write(response.content)
+def download_image(path, url, payload=None):
+    response = requests.get(url, params=payload)
+    response.raise_for_status()
+    with open(path, "wb") as file:
+        file.write(response.content)
+
