@@ -2,7 +2,7 @@ import requests
 import os
 import datetime
 from dotenv import load_dotenv
-from url_split import url_split
+from url_split_and_dowland_images import url_split,download_image
 
 
 def fetch_nasa_apod(directory):
@@ -28,9 +28,9 @@ def fetch_nasa_apod(directory):
 
 
 def fetch_nasa_epic(directory):
-    payload = {
-        "api_key":"DEMO_KEY"
-    }
+    payload= {
+        "api_key":nasa_api_key
+        }
     nasa_epic_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30"
     response = requests.get(nasa_epic_url,params=payload)
     response.raise_for_status()
@@ -40,9 +40,6 @@ def fetch_nasa_epic(directory):
         adatetime = datetime.datetime.fromisoformat(epic["date"])
         formatted_date = adatetime.strftime("%Y/%m/%d")
         epic_images.append(epic["image"])
-    payload= {
-        "api_key":nasa_api_key
-        }
     for number, image in enumerate(epic_images, 1):
         response = requests.get(f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{image}.png",params=payload)
         response.raise_for_status()
