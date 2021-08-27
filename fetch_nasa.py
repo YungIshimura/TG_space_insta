@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from get_file_extension_and_dowland_images import get_file_extension, download_image
 
 
-def fetch_nasa_apod(directory):
+def fetch_nasa_apod(directory,nasa_api_key):
     payload = {
         "api_key": nasa_api_key,
         "start_date": "2016-01-01",
@@ -24,7 +24,7 @@ def fetch_nasa_apod(directory):
         download_image(path, image)
 
 
-def fetch_nasa_epic(directory):
+def fetch_nasa_epic(directory,nasa_api_key):
     payload = {"api_key": nasa_api_key}
     nasa_epic_url = "https://api.nasa.gov/EPIC/api/natural/date/2019-05-30"
     response = requests.get(nasa_epic_url, params=payload)
