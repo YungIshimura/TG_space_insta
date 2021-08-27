@@ -5,7 +5,7 @@ from get_file_extension_and_dowland_images import get_file_extension, download_i
 
 
 def fetch_spacex_last_launch(directory):
-    response = requests.get("https://api.spacexdata.com f'{'/v3'}{'/launches'}")
+    response = requests.get("https://api.spacexdata.com/v3/launches")
     response.raise_for_status()
     launches = response.json()
     images_links = launches[15]["links"]["flickr_images"]
