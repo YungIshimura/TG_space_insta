@@ -2,7 +2,7 @@ import requests
 import os
 import datetime
 from dotenv import load_dotenv
-from url_split_and_dowland_images import url_split, download_image
+from get_file_extension_and_dowland_images import get_file_extension, download_image
 
 
 def fetch_nasa_apod(directory):
@@ -19,7 +19,7 @@ def fetch_nasa_apod(directory):
     for links in apod:
         apod_links.append(links["url"])
     for number, image in enumerate(apod_links, 1):
-        extension = url_split(images)
+        extension = get_file_extension(image)
         path = (directory, f"nasa apod{number}{extension}")
         download_image(path, image)
 
@@ -37,7 +37,7 @@ def fetch_nasa_epic(directory):
         epic_images.append(epic["image"])
     for number, image in enumerate(epic_images, 1):
         nasa_epic_link = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{image}.png"
-        extension = url_split(nasa_epic_link)
+        extension = get_file_extension(image)
         path = os.path.join(directory, f"nasa epic{number}{extension}")
         download_image(path, nasa_epic_link, payload=payload)
 

@@ -3,7 +3,7 @@ import urllib
 import requests
 
 
-def url_split(url):
+def get_file_extension(url):
     url = urllib.parse.unquote(url)
     url_slpit = urllib.parse.urlsplit(url)
     path = url_slpit[2]

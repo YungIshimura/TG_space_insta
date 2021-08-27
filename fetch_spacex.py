@@ -1,7 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
-from url_split_and_dowland_images import url_split, download_image
+from get_file_extension_and_dowland_images import get_file_extension, download_image
 
 
 def fetch_spacex_last_launch(directory):
@@ -10,7 +10,7 @@ def fetch_spacex_last_launch(directory):
     launches = response.json()
     images_links = launches[15]["links"]["flickr_images"]
     for number, image in enumerate(images_links, 1):
-        extension = url_split(image)
+        extension = get_file_extension(image)
         path = os.path.join(directory, f"spacex image{number}{extension}")
         download_image(path, image)
 

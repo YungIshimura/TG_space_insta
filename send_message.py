@@ -5,7 +5,7 @@ import telegram
 import time
 
 
-def send_message(bot,directory):
+def photo_publication(bot,directory):
     while True:
         for images in listdir(directory):   
              with open (f"{direc}/{images}","rb") as file:
@@ -18,4 +18,4 @@ if __name__ == "__main__":
     chat_id = os.getenv("CHAT_ID")
     tgbot_api_key = os.getenv("TGBOT_API_KEY")
     bot = telegram.Bot(token=tgbot_api_key)
-    send_message(bot,directory)
+    photo_publication(bot,directory)
