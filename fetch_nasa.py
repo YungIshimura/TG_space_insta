@@ -5,21 +5,21 @@ from dotenv import load_dotenv
 from get_file_extension_and_dowland_images import get_file_extension, download_image
 
 
-# def fetch_nasa_apod(directory, nasa_api_key):
-#     payload = {
-#         "api_key": nasa_api_key,
-#         "start_date": "2016-01-01",
-#         "end_date": "2016-02-02",
-#     }
-#     nasa_apod_url = "https://api.nasa.gov/planetary/apod"
-#     response = requests.get(nasa_apod_url, params=payload)
-#     response.raise_for_status()
-#     apod = response.json()
-#     apod_links = [link["url"] for link in apod]
-#     for number, image in enumerate(apod_links, 1):
-#         extension = get_file_extension(image)
-#         path = os.path.join(directory, f"nasa apod{number}{extension}")
-#         download_image(path, image)
+def fetch_nasa_apod(directory, nasa_api_key):
+    payload = {
+        "api_key": nasa_api_key,
+        "start_date": "2016-01-01",
+        "end_date": "2016-02-02",
+    }
+    nasa_apod_url = "https://api.nasa.gov/planetary/apod"
+    response = requests.get(nasa_apod_url, params=payload)
+    response.raise_for_status()
+    apod = response.json()
+    apod_links = [link["url"] for link in apod]
+    for number, image in enumerate(apod_links, 1):
+        extension = get_file_extension(image)
+        path = os.path.join(directory, f"nasa apod{number}{extension}")
+        download_image(path, image)
 
 
 def fetch_nasa_epic(directory, nasa_api_key):
