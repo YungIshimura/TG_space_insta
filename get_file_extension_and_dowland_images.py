@@ -5,8 +5,8 @@ import requests
 
 def get_file_extension(url):
     url = urllib.parse.unquote(url)
-    url_slpit = urllib.parse.urlsplit(url)
-    path = url_slpit[2]
+    url_split = urllib.parse.urlsplit(url)
+    path = url_split[2]
     return os.path.splitext(path)[1]
 
 
