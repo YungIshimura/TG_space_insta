@@ -16,7 +16,7 @@ def fetch_nasa_apod(directory, nasa_api_key):
     response.raise_for_status()
     apod = response.json()
     apod_links = []
-    for links in apod:
+    for link in apod:
         apod_links.append(links["url"])
     for number, image in enumerate(apod_links, 1):
         extension = get_file_extension(image)
