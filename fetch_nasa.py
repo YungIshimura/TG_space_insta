@@ -33,7 +33,7 @@ def fetch_nasa_epic(directory, nasa_api_key):
     adatetime = [datetime.datetime.fromisoformat(epic["date"]) for epic in epics]
     formatted_date = adatetime[0].strftime("%Y/%m/%d")
     epic_images = [(epic["image"]) for epic in epics]
-    
+
     for number, image in enumerate(epic_images, 1):
         nasa_epic_link = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{image}.png"
         extension = get_file_extension(nasa_epic_link)
@@ -46,5 +46,5 @@ if __name__ == "__main__":
     os.makedirs(directory, exist_ok=False)
     load_dotenv()
     nasa_api_key = os.getenv("NASA_API_KEY")
-    # fetch_nasa_apod(directory, nasa_api_key)
+    fetch_nasa_apod(directory, nasa_api_key)
     fetch_nasa_epic(directory, nasa_api_key)
