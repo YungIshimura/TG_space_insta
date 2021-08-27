@@ -8,9 +8,9 @@ import time
 def photo_publication(bot, directory, chat_id, tgbot_api_key):
     while True:
         for images in listdir(directory):   
-             with open(f"{direc}/{images}","rb") as file:
+             with open(f"{directory}/{images}","rb") as file:
                  bot.send_document(chat_id, document=file)
-                 time.slepp(86400)
+                 time.sleep(86400)
 
 if __name__ == "__main__":
     directory = input("Введите название папки, из которой будут отпраляться фото ")
