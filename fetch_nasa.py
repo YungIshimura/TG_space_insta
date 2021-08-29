@@ -17,7 +17,6 @@ def fetch_nasa_apod(directory, nasa_api_key):
     apod = response.json()
     apod_links = [link["url"] for link in apod]
 
-
     for number, image in enumerate(apod_links, 1):
         extension = get_file_extension(image)
         path = os.path.join(directory, f"nasa apod{number}{extension}")
@@ -31,11 +30,9 @@ def fetch_nasa_epic(directory, nasa_api_key):
     response.raise_for_status()
     epics = response.json()
 
-
-    adatetime = [datetime.datetime.fromisoformat(epic["date"]) for epic in epics]
-    formatted_date = adatetime[0].strftime("%Y/%m/%d")
+    epic_date = datetime.datetime.fromisoformat(epics[0]["date"])
+    formatted_date = epic_date.strftime("%Y/%m/%d")
     epic_images = [(epic["image"]) for epic in epics]
-
 
     for number, image in enumerate(epic_images, 1):
         nasa_epic_link = f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{image}.png"

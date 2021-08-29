@@ -9,7 +9,6 @@ def fetch_spacex_last_launch(directory):
     response.raise_for_status()
     launches = response.json()
     images_links = launches[15]["links"]["flickr_images"]
-
     
     for number, image in enumerate(images_links, 1):
         extension = get_file_extension(image)

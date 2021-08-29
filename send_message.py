@@ -10,9 +10,7 @@ def photo_publication(bot, directory, chat_id, tgbot_api_key):
         for images in listdir(directory):   
             with open(f"{directory}/{images}","rb") as file:
                 bot.send_document(chat_id, document=file)
-                file.close()
             time.sleep(86400)
-
 
 
 if __name__ == "__main__":
